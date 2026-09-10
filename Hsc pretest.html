@@ -1,0 +1,3394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HSC Pre-Test Study Command Center</title>
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+    --bg:#f4f7fb;
+    --card:#ffffff;
+    --card2:#f8fafc;
+    --text:#111827;
+    --muted:#6b7280;
+    --line:#e5e7eb;
+    --primary:#6366f1;
+    --primary2:#8b5cf6;
+    --green:#16a34a;
+    --red:#ef4444;
+    --orange:#f59e0b;
+    --shadow:0 15px 40px rgba(15,23,42,.08);
+}
+
+body.dark{
+    --bg:#070b14;
+    --card:#111827;
+    --card2:#182033;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --line:#273449;
+    --primary:#818cf8;
+    --primary2:#a78bfa;
+    --shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+    background:var(--bg);
+    color:var(--text);
+
+    transition:
+    background .3s ease,
+    color .3s ease;
+
+    min-height:100vh;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   TOP NAVIGATION
+========================================================= */
+
+.top{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    backdrop-filter:blur(18px);
+
+    background:rgba(255,255,255,.82);
+
+    border-bottom:1px solid var(--line);
+}
+
+body.dark .top{
+    background:rgba(7,11,20,.82);
+}
+
+.nav{
+    max-width:1250px;
+    margin:auto;
+
+    padding:13px 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-weight:900;
+    line-height:1.05;
+}
+
+.logo{
+    width:42px;
+    height:42px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:13px;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary2)
+    );
+
+    box-shadow:
+    0 8px 25px rgba(99,102,241,.3);
+}
+
+.brand small{
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.navlinks{
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+
+.navbtn,
+.theme-btn{
+    border:1px solid transparent;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    padding:9px 13px;
+
+    border-radius:11px;
+
+    font-weight:800;
+    font-size:12px;
+
+    transition:.25s;
+}
+
+.navbtn:hover{
+    color:var(--primary);
+    background:rgba(99,102,241,.08);
+}
+
+.navbtn.active{
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary2)
+    );
+
+    box-shadow:
+    0 7px 20px rgba(99,102,241,.25);
+}
+
+.theme-btn{
+    border-color:var(--line);
+    background:var(--card);
+    color:var(--text);
+}
+
+.theme-btn:hover{
+    transform:translateY(-2px);
+    border-color:var(--primary);
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container{
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:
+    28px 20px 60px;
+}
+
+.section{
+    display:none;
+
+    animation:
+    fadeIn .35s ease;
+}
+
+.section.active{
+    display:block;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+
+    border-radius:28px;
+
+    padding:42px;
+
+    color:white;
+
+    background:
+    radial-gradient(
+        circle at 90% 10%,
+        rgba(255,255,255,.18),
+        transparent 30%
+    ),
+
+    linear-gradient(
+        135deg,
+        #4f46e5,
+        #7c3aed,
+        #9333ea
+    );
+
+    box-shadow:
+    0 25px 60px rgba(79,70,229,.25);
+
+    margin-bottom:22px;
+}
+
+.hero:after{
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+    height:280px;
+
+    border-radius:50%;
+
+    right:-100px;
+    bottom:-150px;
+
+    background:
+    rgba(255,255,255,.08);
+}
+
+.hero h1{
+    position:relative;
+    z-index:1;
+
+    font-size:
+    clamp(30px,5vw,55px);
+
+    line-height:1.02;
+
+    margin:12px 0;
+}
+
+.hero p{
+    position:relative;
+    z-index:1;
+
+    max-width:700px;
+
+    color:rgba(255,255,255,.82);
+
+    line-height:1.7;
+}
+
+.badges{
+    position:relative;
+    z-index:1;
+
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+
+    margin-top:20px;
+}
+
+.badge{
+    display:inline-flex;
+
+    padding:7px 11px;
+
+    border-radius:99px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    background:rgba(255,255,255,.13);
+
+    border:1px solid rgba(255,255,255,.18);
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:14px;
+}
+
+.stat{
+    background:var(--card);
+
+    border:1px solid var(--line);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+    transition:.25s;
+}
+
+.stat:hover{
+    transform:translateY(-4px);
+}
+
+.label{
+    color:var(--muted);
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+.num{
+    font-size:30px;
+
+    font-weight:950;
+
+    margin-top:7px;
+}
+
+.progress{
+    height:8px;
+
+    background:
+    rgba(148,163,184,.15);
+
+    border-radius:99px;
+
+    overflow:hidden;
+
+    margin-top:10px;
+}
+
+.progress span{
+    display:block;
+
+    height:100%;
+
+    width:0;
+
+    background:
+    linear-gradient(
+        90deg,
+        var(--primary),
+        var(--primary2)
+    );
+
+    transition:.5s;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section-title{
+    font-size:25px;
+
+    margin:
+    28px 0 7px;
+
+    font-weight:950;
+}
+
+.sub{
+    color:var(--muted);
+
+    margin-bottom:18px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.toolbar{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin:18px 0;
+}
+
+.left,
+.right{
+    display:flex;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+}
+
+.search,
+select{
+    border:1px solid var(--line);
+
+    background:var(--card);
+
+    color:var(--text);
+
+    padding:11px 13px;
+
+    border-radius:12px;
+
+    outline:none;
+
+    min-width:210px;
+}
+
+.search:focus,
+select:focus{
+    border-color:var(--primary);
+
+    box-shadow:
+    0 0 0 3px rgba(99,102,241,.12);
+}
+
+.ghost{
+    padding:10px 13px;
+
+    border:1px solid var(--line);
+
+    background:var(--card);
+
+    color:var(--text);
+
+    border-radius:11px;
+
+    font-weight:800;
+}
+
+.ghost:hover{
+    border-color:var(--primary);
+    color:var(--primary);
+}
+
+
+/* =========================================================
+   DAILY ROUTINE
+========================================================= */
+
+.day{
+    background:var(--card);
+
+    border:1px solid var(--line);
+
+    border-radius:20px;
+
+    margin-bottom:14px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+}
+
+.dayhead{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:15px 18px;
+
+    background:var(--card2);
+
+    border-bottom:1px solid var(--line);
+}
+
+.daytitle{
+    font-weight:950;
+}
+
+.phase{
+    font-size:10px;
+
+    font-weight:900;
+
+    color:var(--primary);
+
+    background:
+    rgba(99,102,241,.10);
+
+    padding:6px 9px;
+
+    border-radius:99px;
+}
+
+.tasks{
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:10px;
+
+    padding:14px;
+}
+
+.task{
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    padding:13px;
+
+    border:1px solid var(--line);
+
+    border-radius:14px;
+
+    transition:.2s;
+}
+
+.task:hover{
+    border-color:var(--primary);
+
+    transform:translateY(-2px);
+}
+
+.task.done{
+    background:
+    rgba(34,197,94,.08);
+
+    border-color:
+    rgba(34,197,94,.3);
+}
+
+.task input{
+    width:18px;
+    height:18px;
+
+    margin-top:2px;
+
+    accent-color:var(--primary);
+
+    cursor:pointer;
+}
+
+.subject{
+    font-size:11px;
+
+    font-weight:900;
+
+    color:var(--primary);
+
+    margin-bottom:4px;
+}
+
+.tasktext{
+    font-size:12px;
+
+    color:var(--muted);
+
+    line-height:1.55;
+}
+
+
+/* =========================================================
+   CHAPTER CARDS
+========================================================= */
+
+.chapter-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:15px;
+}
+
+.chapter{
+    background:var(--card);
+
+    border:1px solid var(--line);
+
+    border-radius:20px;
+
+    padding:18px;
+
+    box-shadow:var(--shadow);
+
+    transition:
+    transform .25s,
+    box-shadow .25s;
+}
+
+.chapter:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 22px 50px rgba(15,23,42,.12);
+}
+
+body.dark .chapter:hover{
+    box-shadow:
+    0 22px 50px rgba(0,0,0,.35);
+}
+
+.chaptertop{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    align-items:flex-start;
+}
+
+.chapter h3{
+    margin-top:5px;
+
+    font-size:17px;
+}
+
+.meta{
+    color:var(--muted);
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+.pill{
+    white-space:nowrap;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    padding:6px 9px;
+
+    border-radius:99px;
+
+    color:var(--primary);
+
+    background:
+    rgba(99,102,241,.10);
+}
+
+.chapterbar{
+    height:9px;
+
+    background:
+    rgba(148,163,184,.15);
+
+    border-radius:99px;
+
+    overflow:hidden;
+
+    margin:
+    14px 0 8px;
+}
+
+.chapterbar span{
+    display:block;
+
+    height:100%;
+
+    width:0;
+
+    background:
+    linear-gradient(
+        90deg,
+        var(--primary),
+        var(--primary2)
+    );
+
+    transition:.5s;
+}
+
+.topicbox{
+    margin-top:13px;
+
+    padding:12px;
+
+    border-radius:14px;
+
+    background:var(--card2);
+
+    border:1px solid var(--line);
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.6;
+}
+
+.topicbox strong{
+    display:block;
+
+    color:var(--text);
+
+    margin-bottom:5px;
+}
+
+
+/* =========================================================
+   CLASS TRACKER
+========================================================= */
+
+.classes{
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:9px;
+
+    margin-top:15px;
+}
+
+.classitem{
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    min-height:52px;
+
+    padding:10px;
+
+    border:1px solid var(--line);
+
+    border-radius:13px;
+
+    background:var(--card);
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    overflow:hidden;
+}
+
+.classitem:before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:4px;
+    height:100%;
+
+    background:
+    linear-gradient(
+        180deg,
+        var(--primary),
+        var(--primary2)
+    );
+
+    transform:scaleY(0);
+
+    transition:.25s;
+}
+
+.classitem:hover{
+    transform:translateY(-3px);
+
+    border-color:var(--primary);
+
+    box-shadow:
+    0 10px 25px rgba(99,102,241,.12);
+}
+
+.classitem:hover:before{
+    transform:scaleY(1);
+}
+
+.classitem.done{
+    background:
+    rgba(34,197,94,.08);
+
+    border-color:
+    rgba(34,197,94,.35);
+}
+
+.classitem input{
+    width:18px;
+    height:18px;
+
+    accent-color:var(--primary);
+
+    cursor:pointer;
+}
+
+.classname{
+    font-size:12px;
+
+    font-weight:900;
+}
+
+.status{
+    font-size:10px;
+
+    color:var(--muted);
+}
+
+.watch-class{
+    margin-left:auto;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    white-space:nowrap;
+
+    padding:6px 9px;
+
+    border-radius:9px;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    text-decoration:none;
+
+    border:1px solid var(--line);
+
+    background:
+    rgba(99,102,241,.08);
+
+    color:var(--primary);
+
+    transition:.2s;
+}
+
+.watch-class:hover{
+    background:var(--primary);
+
+    color:white;
+
+    transform:scale(1.04);
+}
+
+.watch-class.disabled{
+    color:var(--muted);
+
+    background:
+    rgba(148,163,184,.08);
+
+    cursor:not-allowed;
+
+    opacity:.7;
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+.note{
+    background:var(--card);
+
+    border:1px solid var(--line);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:15px;
+}
+
+.note h3{
+    margin-bottom:7px;
+}
+
+textarea{
+    width:100%;
+
+    min-height:180px;
+
+    padding:14px;
+
+    resize:vertical;
+
+    border:1px solid var(--line);
+
+    border-radius:14px;
+
+    outline:none;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    line-height:1.6;
+}
+
+textarea:focus{
+    border-color:var(--primary);
+
+    box-shadow:
+    0 0 0 3px rgba(99,102,241,.10);
+}
+
+
+/* =========================================================
+   SUBJECT STAT
+========================================================= */
+
+.subject-card{
+    background:var(--card);
+
+    border:1px solid var(--line);
+
+    border-radius:18px;
+
+    padding:17px;
+
+    box-shadow:var(--shadow);
+}
+
+.subject-card-top{
+    display:flex;
+
+    justify-content:space-between;
+
+    font-weight:900;
+
+    margin-bottom:9px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    text-align:center;
+
+    color:var(--muted);
+
+    padding:30px 10px;
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:950px){
+
+    .grid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .chapter-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    .nav{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .navlinks{
+        width:100%;
+
+        justify-content:flex-start;
+
+        overflow-x:auto;
+
+        flex-wrap:nowrap;
+
+        padding-bottom:3px;
+    }
+
+    .navbtn{
+        white-space:nowrap;
+    }
+
+    .theme-btn{
+        white-space:nowrap;
+    }
+
+    .container{
+        padding:
+        18px 12px 45px;
+    }
+
+    .hero{
+        padding:28px 22px;
+
+        border-radius:22px;
+    }
+
+    .grid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .tasks{
+        grid-template-columns:1fr;
+    }
+
+    .classes{
+        grid-template-columns:1fr;
+    }
+
+    .search,
+    select{
+        width:100%;
+
+        min-width:0;
+    }
+
+    .left,
+    .right{
+        width:100%;
+    }
+
+    .right button{
+        width:100%;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="top">
+
+<div class="nav">
+
+    <div class="brand">
+
+        <div class="logo">✓</div>
+
+        <div>
+            HSC PRE-TEST
+            <br>
+            <small>20 OCTOBER 2026</small>
+        </div>
+
+    </div>
+
+
+    <div class="navlinks">
+
+        <button class="navbtn active"
+        data-target="dashboard">
+            Dashboard
+        </button>
+
+        <button class="navbtn"
+        data-target="routine">
+            Daily Routine
+        </button>
+
+        <button class="navbtn"
+        data-target="syllabus">
+            Syllabus
+        </button>
+
+        <button class="navbtn"
+        data-target="classes">
+            Class Tracker
+        </button>
+
+        <button class="navbtn"
+        data-target="notes">
+            Notes
+        </button>
+
+        <button
+        class="theme-btn"
+        onclick="toggleTheme()"
+        id="themeBtn">
+
+            🌙 Dark
+
+        </button>
+
+    </div>
+
+</div>
+
+</header>
+
+
+
+<main class="container">
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section
+id="dashboard"
+class="section active">
+
+<div class="hero">
+
+    <div class="badge">
+        🎯 TASK-BASED • NOT HOUR-BASED
+    </div>
+
+    <h1>
+        Beat the Pre-Test.
+        <br>
+        One tick at a time.
+    </h1>
+
+    <p>
+        Your personal HSC command center for
+        Mathematics, Biology, Physics and Chemistry.
+        Finish the task, tick it and move forward.
+        Your progress saves automatically in this browser.
+    </p>
+
+    <div class="badges">
+
+        <span class="badge">
+            📅 10 Sep → 20 Oct
+        </span>
+
+        <span class="badge">
+            📚 Complete Selected Syllabus
+        </span>
+
+        <span class="badge">
+            ▶ YouTube Class Tracking
+        </span>
+
+        <span class="badge">
+            ☑ Auto Save
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="grid">
+
+    <div class="stat">
+
+        <div class="label">
+            Days Until Pre-Test
+        </div>
+
+        <div
+        class="num"
+        id="daysLeft">
+            —
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="label">
+            Overall Task Completion
+        </div>
+
+        <div
+        class="num"
+        id="overallPct">
+            0%
+        </div>
+
+        <div class="progress">
+            <span id="overallBar"></span>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="label">
+            Classes Completed
+        </div>
+
+        <div
+        class="num"
+        id="classDone">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="label">
+            Total Classes
+        </div>
+
+        <div
+        class="num"
+        id="classTotal">
+            0
+        </div>
+
+    </div>
+
+</div>
+
+
+<h2 class="section-title">
+    Subject Progress
+</h2>
+
+<div
+class="grid"
+id="subjectStats">
+</div>
+
+
+<div class="note"
+style="margin-top:18px">
+
+    <h3>
+        🔥 Your Rule
+    </h3>
+
+    <p style="color:var(--muted);line-height:1.7">
+        Don't measure your day by
+        "How many hours did I study?"
+        Measure it by
+        <b>how many tasks you actually finished.</b>
+    </p>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     DAILY ROUTINE
+===================================================== -->
+
+<section
+id="routine"
+class="section">
+
+<h2 class="section-title">
+    📅 Daily Task Routine
+</h2>
+
+<p class="sub">
+    Every day contains one task for each
+    subject. Complete it and tick it.
+</p>
+
+
+<div class="toolbar">
+
+    <div class="left">
+
+        <input
+        id="routineSearch"
+        class="search"
+        placeholder="🔎 Search date or subject...">
+
+        <select id="routineFilter">
+
+            <option value="all">
+                All Subjects
+            </option>
+
+            <option>
+                Mathematics
+            </option>
+
+            <option>
+                Biology
+            </option>
+
+            <option>
+                Physics
+            </option>
+
+            <option>
+                Chemistry
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="right">
+
+        <button
+        class="ghost"
+        onclick="resetRoutine()">
+
+            Reset Daily Ticks
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="routineList"></div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SYLLABUS
+===================================================== -->
+
+<section
+id="syllabus"
+class="section">
+
+<h2 class="section-title">
+    📚 Your HSC Pre-Test Syllabus
+</h2>
+
+<p class="sub">
+    All selected chapters are listed here.
+</p>
+
+
+<div class="toolbar">
+
+    <div class="left">
+
+        <input
+        id="syllabusSearch"
+        class="search"
+        placeholder="🔎 Search chapter...">
+
+        <select id="subjectFilter">
+
+            <option value="all">
+                All Subjects
+            </option>
+
+            <option>
+                Mathematics
+            </option>
+
+            <option>
+                Biology
+            </option>
+
+            <option>
+                Physics
+            </option>
+
+            <option>
+                Chemistry
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<div
+id="chapterGrid"
+class="chapter-grid">
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CLASS TRACKER
+===================================================== -->
+
+<section
+id="classes"
+class="section">
+
+<h2 class="section-title">
+    🎓 Class Tracker
+</h2>
+
+<p class="sub">
+    Tick each class after watching it.
+    YouTube links can be added later.
+</p>
+
+
+<div class="toolbar">
+
+    <div class="left">
+
+        <input
+        id="classSearch"
+        class="search"
+        placeholder="🔎 Search class or chapter...">
+
+        <select id="classFilter">
+
+            <option value="all">
+                All Subjects
+            </option>
+
+            <option>
+                Mathematics
+            </option>
+
+            <option>
+                Biology
+            </option>
+
+            <option>
+                Physics
+            </option>
+
+            <option>
+                Chemistry
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<div
+id="classGrid"
+class="chapter-grid">
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     NOTES
+===================================================== -->
+
+<section
+id="notes"
+class="section">
+
+<h2 class="section-title">
+    📝 Notes & Weak Topics
+</h2>
+
+<p class="sub">
+    Write down mistakes, confusing formulas,
+    difficult chapters and things you must revise.
+</p>
+
+
+<div class="note">
+
+    <h3>
+        📌 My Weak Topics
+    </h3>
+
+    <textarea
+    id="weakNotes"
+    placeholder="Example:
+Physics — diffraction formula confusing
+Chemistry — iodometry calculation
+Biology — genetics terminology
+Math — integration formulas"></textarea>
+
+</div>
+
+
+<div class="note">
+
+    <h3>
+        ❌ Mistakes I Must Fix
+    </h3>
+
+    <textarea
+    id="mistakeNotes"
+    placeholder="Write your repeated mistakes here..."></textarea>
+
+</div>
+
+
+<div class="note">
+
+    <h3>
+        🧠 Things To Remember
+    </h3>
+
+    <textarea
+    id="memoryNotes"
+    placeholder="Write memory tricks, formulas, reactions, diagrams etc."></textarea>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+    HSC Pre-Test Study Command Center
+    •
+    10 September → 20 October 2026
+
+    <br><br>
+
+    💪 Study smart. Tick tasks. Beat the test.
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   CHAPTER DATA
+========================================================= */
+
+const chapters = [
+
+    /* ================= MATHEMATICS ================= */
+
+    ["Mathematics","1st Paper","Ch 1",
+    "Matrices and Determinants",6],
+
+    ["Mathematics","1st Paper","Ch 3",
+    "Straight Line",6],
+
+    ["Mathematics","1st Paper","Ch 7",
+    "Trigonometric Ratios of Associated Angles",5],
+
+    ["Mathematics","1st Paper","Ch 9",
+    "Differentiation",7],
+
+    ["Mathematics","1st Paper","Ch 10",
+    "Integration",7],
+
+
+    ["Mathematics","2nd Paper","Ch 3",
+    "Complex Numbers",6],
+
+    ["Mathematics","2nd Paper","Ch 4",
+    "Polynomials and Polynomial Equations",6],
+
+    ["Mathematics","2nd Paper","Ch 6",
+    "Conics",6],
+
+    ["Mathematics","2nd Paper","Ch 9",
+    "Motion of Particles in a Plane",5],
+
+    ["Mathematics","2nd Paper","Ch 10",
+    "Measures of Dispersion and Probability",6],
+
+
+
+    /* ================= BIOLOGY ================= */
+
+    ["Biology","1st Paper","Ch 8",
+    "Tissue and Tissue System",6],
+
+    ["Biology","1st Paper","Ch 9",
+    "Plant Physiology",7],
+
+    ["Biology","1st Paper","Ch 10",
+    "Plant Reproduction",6],
+
+
+    ["Biology","2nd Paper","Ch 6",
+    "Excretion",6],
+
+    ["Biology","2nd Paper","Ch 7",
+    "Locomotion",6],
+
+    ["Biology","2nd Paper","Ch 10",
+    "Immunity",5],
+
+    ["Biology","2nd Paper","Ch 11",
+    "Genetics and Evolution",7],
+
+
+
+    /* ================= PHYSICS ================= */
+
+    ["Physics","1st Paper","Ch 2",
+    "Vector",6],
+
+    ["Physics","1st Paper","Ch 4",
+    "Newtonian Mechanics",7],
+
+    ["Physics","1st Paper","Ch 5",
+    "Work, Energy and Power",6],
+
+
+    ["Physics","2nd Paper","Ch 4",
+    "Magnetic Effects of Current and Magnetism",7],
+
+    ["Physics","2nd Paper","Ch 7",
+    "Physical Optics",7],
+
+    ["Physics","2nd Paper","Ch 8",
+    "Introduction to Modern Physics",6],
+
+
+
+    /* ================= CHEMISTRY ================= */
+
+    ["Chemistry","2nd Paper","Ch 2",
+    "Organic Chemistry",8],
+
+    ["Chemistry","2nd Paper","Ch 3",
+    "Quantitative Chemistry",8]
+
+];
+
+
+/* =========================================================
+   CHEMISTRY TOPICS
+========================================================= */
+
+const chemTopics = {
+
+    "Ch 2":[
+
+        "Nucleophilic substitution reactions of aliphatic compounds",
+
+        "Aromatic hydrocarbons",
+
+        "Substitution reactions of aromatic compounds",
+
+        "Elimination reactions"
+
+    ],
+
+    "Ch 3":[
+
+        "Oxidation-reduction",
+
+        "Balancing oxidation-reduction reactions using ion-electron method",
+
+        "Mathematical problems",
+
+        "Titration",
+
+        "Indicators",
+
+        "Iodometry",
+
+        "Iodimetry",
+
+        "Beer-Lambert law"
+
+    ]
+
+};
+
+
+/* =========================================================
+   SUBJECTS
+========================================================= */
+
+const subjects=[
+    "Mathematics",
+    "Biology",
+    "Physics",
+    "Chemistry"
+];
+
+
+/* =========================================================
+   DATE SETTINGS
+========================================================= */
+
+const startDate =
+new Date("2026-09-10T00:00:00");
+
+const examDate =
+new Date("2026-10-20T00:00:00");
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function key(name){
+
+    return "hsc_pretest_" + name;
+
+}
+
+
+function getState(name){
+
+    return localStorage.getItem(
+        key(name)
+    ) === "1";
+
+}
+
+
+function setState(name,value){
+
+    localStorage.setItem(
+        key(name),
+        value ? "1" : "0"
+    );
+
+}
+
+
+/* =========================================================
+   DATE FUNCTIONS
+========================================================= */
+
+function dateKey(date){
+
+    return date
+    .toISOString()
+    .slice(0,10);
+
+}
+
+
+function daysBetween(a,b){
+
+    return Math.ceil(
+        (b-a) /
+        (1000*60*60*24)
+    );
+
+}
+
+
+function formatDate(date){
+
+    return date.toLocaleDateString(
+        "en-GB",
+        {
+            weekday:"short",
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+function phase(date){
+
+    if(
+        date.getTime() ===
+        examDate.getTime()
+    ){
+
+        return "📝 PRE-TEST";
+
+    }
+
+    const n =
+    daysBetween(
+        startDate,
+        date
+    ) + 1;
+
+
+    if(n <= 18){
+
+        return "PHASE 1 • COVER";
+
+    }
+
+    if(n <= 29){
+
+        return "PHASE 2 • PRACTICE";
+
+    }
+
+    if(n <= 37){
+
+        return "PHASE 3 • EXAM PRACTICE";
+
+    }
+
+    return "PHASE 4 • FINAL REVISION";
+
+}
+
+
+/* =========================================================
+   TASK BANK
+========================================================= */
+
+const taskBank = {
+
+    Mathematics:[
+
+        "Watch today's class + make short formula notes.",
+
+        "Solve 15–25 HSC standard problems.",
+
+        "Do 1 CQ + 20 MCQ and mark mistakes.",
+
+        "Closed-book formula recall + correct yesterday's mistakes."
+
+    ],
+
+
+    Biology:[
+
+        "Watch today's class + make diagram/key-point notes.",
+
+        "Read textbook section and answer CQ questions.",
+
+        "Do 25–40 MCQ + 1 CQ and mark confusing facts.",
+
+        "Active recall: diagrams, definitions and processes."
+
+    ],
+
+
+    Physics:[
+
+        "Watch today's class + write important formulas.",
+
+        "Solve 10–20 numericals with full working.",
+
+        "Do CQ + MCQ and record formula mistakes.",
+
+        "Closed-book formula recall + 5 quick numericals."
+
+    ],
+
+
+    Chemistry:[
+
+        "Watch today's class + write reactions/formulas.",
+
+        "Solve calculation/reaction questions.",
+
+        "Do CQ + MCQ and correct every error.",
+
+        "Write key reactions/calculations from memory."
+
+    ]
+
+};
+
+
+/* =========================================================
+   DAY TASK
+========================================================= */
+
+function dayTask(
+    subject,
+    date,
+    index
+){
+
+    if(
+        date.getTime() ===
+        examDate.getTime()
+    ){
+
+        return "PRE-TEST DAY — Sit the exam calmly. Afterward, record difficult topics.";
+
+    }
+
+
+    const n =
+    daysBetween(
+        startDate,
+        date
+    ) + 1;
+
+
+    if(n <= 18){
+
+        return taskBank[
+            subject
+        ][index % 4];
+
+    }
+
+
+    if(n <= 29){
+
+        return "Second pass: revisit a weak area, solve harder HSC questions and correct mistakes.";
+
+    }
+
+
+    if(n <= 37){
+
+        return "Timed exam practice: solve a mixed set under exam conditions and review every wrong answer.";
+
+    }
+
+
+    return "Final active recall: formulas, reactions, diagrams and key facts followed by a short timed set.";
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+document
+.querySelectorAll(".navbtn")
+.forEach(button=>{
+
+    button.addEventListener(
+        "click",
+        ()=>{
+
+            document
+            .querySelectorAll(".navbtn")
+            .forEach(b=>
+                b.classList.remove("active")
+            );
+
+            button.classList.add("active");
+
+
+            document
+            .querySelectorAll(".section")
+            .forEach(section=>
+                section.classList.remove("active")
+            );
+
+
+            document
+            .getElementById(
+                button.dataset.target
+            )
+            .classList.add("active");
+
+
+            window.scrollTo({
+                top:0,
+                behavior:"smooth"
+            });
+
+        }
+
+    );
+
+});
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function toggleTheme(){
+
+    document.body.classList.toggle(
+        "dark"
+    );
+
+
+    const dark =
+    document.body.classList.contains(
+        "dark"
+    );
+
+
+    localStorage.setItem(
+        "hsc_theme",
+        dark ? "dark" : "light"
+    );
+
+
+    updateThemeButton();
+
+}
+
+
+function updateThemeButton(){
+
+    const button =
+    document.getElementById(
+        "themeBtn"
+    );
+
+
+    if(
+        document.body.classList.contains(
+            "dark"
+        )
+    ){
+
+        button.innerHTML =
+        "☀️ White";
+
+    }else{
+
+        button.innerHTML =
+        "🌙 Dark";
+
+    }
+
+}
+
+
+if(
+    localStorage.getItem(
+        "hsc_theme"
+    ) === "dark"
+){
+
+    document.body.classList.add(
+        "dark"
+    );
+
+}
+
+updateThemeButton();
+
+
+/* =========================================================
+   DAILY ROUTINE RENDER
+========================================================= */
+
+function renderRoutine(){
+
+    const box =
+    document.getElementById(
+        "routineList"
+    );
+
+    const search =
+    (
+        document.getElementById(
+            "routineSearch"
+        ).value || ""
+    ).toLowerCase();
+
+
+    const filter =
+    document.getElementById(
+        "routineFilter"
+    ).value;
+
+
+    box.innerHTML="";
+
+
+    let date =
+    new Date(startDate);
+
+
+    let dayNumber=0;
+
+
+    while(
+        date <= examDate
+    ){
+
+        const dateString =
+        formatDate(date);
+
+
+        let matchesSearch =
+        !search ||
+        dateString
+        .toLowerCase()
+        .includes(search);
+
+
+        const dayBox =
+        document.createElement(
+            "div"
+        );
+
+        dayBox.className="day";
+
+
+        const head =
+        document.createElement(
+            "div"
+        );
+
+        head.className="dayhead";
+
+
+        head.innerHTML=`
+
+            <div>
+
+                <div class="daytitle">
+                    Day ${dayNumber+1}
+                    • ${dateString}
+                </div>
+
+            </div>
+
+            <div class="phase">
+                ${phase(date)}
+            </div>
+
+        `;
+
+
+        dayBox.appendChild(head);
+
+
+        const tasks =
+        document.createElement(
+            "div"
+        );
+
+        tasks.className="tasks";
+
+
+        subjects.forEach(
+            (subject,index)=>{
+
+                if(
+                    filter !== "all" &&
+                    subject !== filter
+                ){
+
+                    return;
+
+                }
+
+
+                const taskText =
+                dayTask(
+                    subject,
+                    date,
+                    dayNumber
+                );
+
+
+                const id =
+                "daily_" +
+                dateKey(date) +
+                "_" +
+                subject;
+
+
+                const done =
+                getState(id);
+
+
+                if(
+                    search &&
+                    !(
+                        dateString +
+                        " " +
+                        subject +
+                        " " +
+                        taskText
+                    )
+                    .toLowerCase()
+                    .includes(search)
+                ){
+
+                    return;
+
+                }
+
+
+                const item =
+                document.createElement(
+                    "label"
+                );
+
+                item.className =
+                "task " +
+                (
+                    done
+                    ? "done"
+                    : ""
+                );
+
+
+                item.innerHTML=`
+
+                    <input
+                    type="checkbox"
+                    ${done ? "checked" : ""}
+                    onchange="
+                        setState(
+                            '${id}',
+                            this.checked
+                        );
+                        renderRoutine();
+                        updateAll();
+                    "
+                    >
+
+                    <div>
+
+                        <div class="subject">
+                            ${subject}
+                        </div>
+
+                        <div class="tasktext">
+                            ${taskText}
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                tasks.appendChild(item);
+
+            }
+        );
+
+
+        if(
+            tasks.children.length > 0
+        ){
+
+            dayBox.appendChild(tasks);
+
+            box.appendChild(dayBox);
+
+        }
+
+
+        date.setDate(
+            date.getDate()+1
+        );
+
+        dayNumber++;
+
+    }
+
+}
+
+
+/* =========================================================
+   SYLLABUS RENDER
+========================================================= */
+
+function renderChapters(){
+
+    const q =
+    (
+        document.getElementById(
+            "syllabusSearch"
+        ).value || ""
+    ).toLowerCase();
+
+
+    const filter =
+    document.getElementById(
+        "subjectFilter"
+    ).value;
+
+
+    const box =
+    document.getElementById(
+        "chapterGrid"
+    );
+
+
+    box.innerHTML="";
+
+
+    chapters.forEach(
+        (chapter,index)=>{
+
+            const [
+                subject,
+                paper,
+                ch,
+                title,
+                count
+            ] = chapter;
+
+
+            if(
+                filter !== "all" &&
+                subject !== filter
+            ){
+
+                return;
+
+            }
+
+
+            const topics =
+            (
+                subject === "Chemistry" &&
+                chemTopics[ch]
+            )
+            ?
+            chemTopics[ch]
+            :
+            [];
+
+
+            const text =
+            (
+                subject +
+                " " +
+                paper +
+                " " +
+                ch +
+                " " +
+                title +
+                " " +
+                topics.join(" ")
+            ).toLowerCase();
+
+
+            if(
+                q &&
+                !text.includes(q)
+            ){
+
+                return;
+
+            }
+
+
+            const doneCount =
+            Array
+            .from(
+                {length:count},
+                (_,i)=>
+                    getState(
+                        "class_" +
+                        index +
+                        "_" +
+                        i
+                    )
+            )
+            .filter(Boolean)
+            .length;
+
+
+            const pct =
+            Math.round(
+                doneCount /
+                count *
+                100
+            );
+
+
+            const topicHtml =
+            topics.length
+            ?
+            `
+            <div class="topicbox">
+
+                <strong>
+                    Chemistry Topics
+                </strong>
+
+                ${topics
+                .map(
+                    t=>"• "+t
+                )
+                .join("<br>")}
+
+            </div>
+            `
+            :
+            "";
+
+
+            const card =
+            document.createElement(
+                "div"
+            );
+
+
+            card.className="chapter";
+
+
+            card.innerHTML=`
+
+                <div class="chaptertop">
+
+                    <div>
+
+                        <div class="meta">
+                            ${subject}
+                            •
+                            ${paper}
+                        </div>
+
+                        <h3>
+                            ${ch}
+                            —
+                            ${title}
+                        </h3>
+
+                    </div>
+
+                    <span class="pill">
+                        ${count} classes
+                    </span>
+
+                </div>
+
+
+                <div class="chapterbar">
+
+                    <span
+                    style="
+                    width:${pct}%
+                    ">
+                    </span>
+
+                </div>
+
+
+                <div
+                style="
+                font-size:11px;
+                color:var(--muted)
+                ">
+
+                    ${doneCount}
+                    /
+                    ${count}
+                    classes completed
+                    •
+                    ${pct}%
+
+                </div>
+
+
+                ${topicHtml}
+
+            `;
+
+
+            box.appendChild(card);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   YOUTUBE LINKS
+   ---------------------------------------------------------
+   YOU DO NOT NEED TO ADD LINKS NOW.
+
+   Later you can replace "" with:
+   "https://www.youtube.com/watch?v=XXXXX"
+
+========================================================= */
+
+const youtubeLinks = {
+
+    /*
+    Example:
+
+    "Mathematics-Ch 1": [
+        "",
+        "",
+        ""
+    ]
+
+    */
+
+};
+
+
+/* =========================================================
+   CLASS TRACKER
+========================================================= */
+
+function renderClasses(){
+
+    const q =
+    (
+        document.getElementById(
+            "classSearch"
+        ).value || ""
+    ).toLowerCase();
+
+
+    const filter =
+    document.getElementById(
+        "classFilter"
+    ).value;
+
+
+    const box =
+    document.getElementById(
+        "classGrid"
+    );
+
+
+    box.innerHTML="";
+
+
+    chapters.forEach(
+        (chapter,index)=>{
+
+            const [
+                subject,
+                paper,
+                ch,
+                title,
+                count
+            ] = chapter;
+
+
+            if(
+                filter !== "all" &&
+                subject !== filter
+            ){
+
+                return;
+
+            }
+
+
+            const chapterText =
+            (
+                subject +
+                " " +
+                paper +
+                " " +
+                ch +
+                " " +
+                title
+            ).toLowerCase();
+
+
+            if(
+                q &&
+                !chapterText.includes(q)
+            ){
+
+                return;
+
+            }
+
+
+            const topics =
+            (
+                subject === "Chemistry" &&
+                chemTopics[ch]
+            )
+            ?
+            chemTopics[ch]
+            :
+            [];
+
+
+            const doneCount =
+            Array
+            .from(
+                {length:count},
+                (_,i)=>
+                    getState(
+                        "class_" +
+                        index +
+                        "_" +
+                        i
+                    )
+            )
+            .filter(Boolean)
+            .length;
+
+
+            const card =
+            document.createElement(
+                "div"
+            );
+
+
+            card.className="chapter";
+
+
+            let items="";
+
+
+            for(
+                let i=0;
+                i<count;
+                i++
+            ){
+
+                const id =
+                "class_" +
+                index +
+                "_" +
+                i;
+
+
+                const done =
+                getState(id);
+
+
+                const linkKey =
+                subject +
+                "-" +
+                ch;
+
+
+                const link =
+                (
+                    youtubeLinks[
+                        linkKey
+                    ] || []
+                )[i] || "";
+
+
+                let watchButton;
+
+
+                if(link){
+
+                    watchButton=`
+
+                        <a
+                        href="${link}"
+                        target="_blank"
+                        class="watch-class">
+
+                            ▶ Watch Class
+
+                        </a>
+
+                    `;
+
+                }else{
+
+                    watchButton=`
+
+                        <span
+                        class="
+                        watch-class
+                        disabled
+                        "
+                        title="
+                        Add YouTube link later
+                        ">
+
+                            ▶ Link not added
+
+                        </span>
+
+                    `;
+
+                }
+
+
+                items += `
+
+                    <label
+                    class="
+                    classitem
+                    ${done ? "done" : ""}
+                    ">
+
+                        <input
+                        type="checkbox"
+                        ${done ? "checked" : ""}
+                        onchange="
+                            setState(
+                                '${id}',
+                                this.checked
+                            );
+                            renderClasses();
+                            renderChapters();
+                            updateAll();
+                        "
+                        >
+
+                        <span
+                        class="classname">
+
+                            📚 Class ${i+1}
+
+                        </span>
+
+
+                        <span
+                        class="status">
+
+                            ${
+                                done
+                                ?
+                                "✓ Completed"
+                                :
+                                "Not completed"
+                            }
+
+                        </span>
+
+
+                        ${watchButton}
+
+                    </label>
+
+                `;
+
+            }
+
+
+            const topicHtml =
+            topics.length
+            ?
+            `
+            <div class="topicbox">
+
+                <strong>
+                    Suggested Class Focus
+                </strong>
+
+                ${topics
+                .map(
+                    (t,i)=>
+                    "Class " +
+                    (i+1) +
+                    ": " +
+                    t
+                )
+                .join("<br>")}
+
+            </div>
+            `
+            :
+            "";
+
+
+            card.innerHTML=`
+
+                <div class="chaptertop">
+
+                    <div>
+
+                        <div class="meta">
+                            ${subject}
+                            •
+                            ${paper}
+                        </div>
+
+                        <h3>
+                            ${ch}
+                            —
+                            ${title}
+                        </h3>
+
+                    </div>
+
+
+                    <span class="pill">
+
+                        ${doneCount}/${count}
+
+                    </span>
+
+                </div>
+
+
+                <div class="classes">
+
+                    ${items}
+
+                </div>
+
+
+                ${topicHtml}
+
+            `;
+
+
+            box.appendChild(card);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   NOTES SAVE
+========================================================= */
+
+function loadNotes(){
+
+    document.getElementById(
+        "weakNotes"
+    ).value =
+    localStorage.getItem(
+        "hsc_weak_notes"
+    ) || "";
+
+
+    document.getElementById(
+        "mistakeNotes"
+    ).value =
+    localStorage.getItem(
+        "hsc_mistake_notes"
+    ) || "";
+
+
+    document.getElementById(
+        "memoryNotes"
+    ).value =
+    localStorage.getItem(
+        "hsc_memory_notes"
+    ) || "";
+
+}
+
+
+document
+.getElementById("weakNotes")
+.addEventListener(
+    "input",
+    e=>{
+
+        localStorage.setItem(
+            "hsc_weak_notes",
+            e.target.value
+        );
+
+    }
+);
+
+
+document
+.getElementById("mistakeNotes")
+.addEventListener(
+    "input",
+    e=>{
+
+        localStorage.setItem(
+            "hsc_mistake_notes",
+            e.target.value
+        );
+
+    }
+);
+
+
+document
+.getElementById("memoryNotes")
+.addEventListener(
+    "input",
+    e=>{
+
+        localStorage.setItem(
+            "hsc_memory_notes",
+            e.target.value
+        );
+
+    }
+);
+
+
+/* =========================================================
+   DASHBOARD UPDATE
+========================================================= */
+
+function updateAll(){
+
+    let totalTasks=0;
+
+    let doneTasks=0;
+
+
+    let currentDate =
+    new Date(startDate);
+
+
+    let dayIndex=0;
+
+
+    while(
+        currentDate <= examDate
+    ){
+
+        subjects.forEach(
+            subject=>{
+
+                totalTasks++;
+
+
+                const id =
+                "daily_" +
+                dateKey(currentDate) +
+                "_" +
+                subject;
+
+
+                if(
+                    getState(id)
+                ){
+
+                    doneTasks++;
+
+                }
+
+            }
+        );
+
+
+        currentDate.setDate(
+            currentDate.getDate()+1
+        );
+
+
+        dayIndex++;
+
+    }
+
+
+    const pct =
+    totalTasks
+    ?
+    Math.round(
+        doneTasks /
+        totalTasks *
+        100
+    )
+    :
+    0;
+
+
+    document.getElementById(
+        "overallPct"
+    ).textContent =
+    pct + "%";
+
+
+    document.getElementById(
+        "overallBar"
+    ).style.width =
+    pct + "%";
+
+
+    let totalClasses=0;
+
+    let completedClasses=0;
+
+
+    chapters.forEach(
+        (chapter,index)=>{
+
+            const count =
+            chapter[4];
+
+
+            totalClasses += count;
+
+
+            for(
+                let i=0;
+                i<count;
+                i++
+            ){
+
+                if(
+                    getState(
+                        "class_" +
+                        index +
+                        "_" +
+                        i
+                    )
+                ){
+
+                    completedClasses++;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "classDone"
+    ).textContent =
+    completedClasses;
+
+
+    document.getElementById(
+        "classTotal"
+    ).textContent =
+    totalClasses;
+
+
+    const stats =
+    document.getElementById(
+        "subjectStats"
+    );
+
+
+    stats.innerHTML="";
+
+
+    subjects.forEach(
+        subject=>{
+
+            let total=0;
+
+            let done=0;
+
+
+            let d =
+            new Date(startDate);
+
+
+            let index=0;
+
+
+            while(
+                d <= examDate
+            ){
+
+                total++;
+
+
+                const id =
+                "daily_" +
+                dateKey(d) +
+                "_" +
+                subject;
+
+
+                if(
+                    getState(id)
+                ){
+
+                    done++;
+
+                }
+
+
+                d.setDate(
+                    d.getDate()+1
+                );
+
+                index++;
+
+            }
+
+
+            const p =
+            Math.round(
+                done /
+                total *
+                100
+            );
+
+
+            const div =
+            document.createElement(
+                "div"
+            );
+
+
+            div.className=
+            "subject-card";
+
+
+            div.innerHTML=`
+
+                <div
+                class="subject-card-top">
+
+                    <span>
+                        ${subject}
+                    </span>
+
+                    <span>
+                        ${p}%
+                    </span>
+
+                </div>
+
+
+                <div class="progress">
+
+                    <span
+                    style="
+                    width:${p}%
+                    ">
+
+                    </span>
+
+                </div>
+
+                <div
+                style="
+                margin-top:7px;
+                color:var(--muted);
+                font-size:10px;
+                ">
+
+                    ${done}
+                    /
+                    ${total}
+                    daily tasks
+
+                </div>
+
+            `;
+
+
+            stats.appendChild(div);
+
+        }
+    );
+
+
+    const today =
+    new Date();
+
+
+    const days =
+    Math.max(
+        0,
+        daysBetween(
+            today,
+            examDate
+        )
+    );
+
+
+    document.getElementById(
+        "daysLeft"
+    ).textContent =
+    days;
+
+}
+
+
+/* =========================================================
+   RESET ROUTINE
+========================================================= */
+
+function resetRoutine(){
+
+    if(
+        !confirm(
+            "Reset ALL daily task ticks?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    let d =
+    new Date(startDate);
+
+
+    while(
+        d <= examDate
+    ){
+
+        subjects.forEach(
+            subject=>{
+
+                localStorage.removeItem(
+                    key(
+                        "daily_" +
+                        dateKey(d) +
+                        "_" +
+                        subject
+                    )
+                );
+
+            }
+        );
+
+
+        d.setDate(
+            d.getDate()+1
+        );
+
+    }
+
+
+    renderRoutine();
+
+    updateAll();
+
+}
+
+
+/* =========================================================
+   SEARCH EVENTS
+========================================================= */
+
+document
+.getElementById(
+    "routineSearch"
+)
+.addEventListener(
+    "input",
+    renderRoutine
+);
+
+
+document
+.getElementById(
+    "routineFilter"
+)
+.addEventListener(
+    "change",
+    renderRoutine
+);
+
+
+document
+.getElementById(
+    "syllabusSearch"
+)
+.addEventListener(
+    "input",
+    renderChapters
+);
+
+
+document
+.getElementById(
+    "subjectFilter"
+)
+.addEventListener(
+    "change",
+    renderChapters
+);
+
+
+document
+.getElementById(
+    "classSearch"
+)
+.addEventListener(
+    "input",
+    renderClasses
+);
+
+
+document
+.getElementById(
+    "classFilter"
+)
+.addEventListener(
+    "change",
+    renderClasses
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+loadNotes();
+
+renderRoutine();
+
+renderChapters();
+
+renderClasses();
+
+updateAll();
+
+</script>
+
+</body>
+</html>
